@@ -24,7 +24,6 @@ namespace Services.Tests.Environment
         [Given(@"в репозитории организаций поиск организаций по пользователю ""(.*)"" возвращает")]
         public void ВРепозиторииОрганизацийПоискОрганизацийПоПользователюВозвращает(string user, Table table)
         {
-            var userId = _namedGuids.Ensure(user);
             var organizations = table
                 .CreateSet<OrganizationRequisitesDtoData>()
                 .Select(x => new OrganizationRequisitesDto
@@ -35,9 +34,18 @@ namespace Services.Tests.Environment
                     OwnerId = _namedGuids.Ensure(x.OwnerId)
                 })
                 .ToArray();
+            var userId = _namedGuids.Ensure(user);
             _repository
                 .Setup(x => x.FindOrganizationsforOwner(userId))
                 .Returns(organizations);
+        }
+
+        [Then(@"в репозитории организаций был поиск организаций по пользователю ""(.*)""")]
+        public void ТоВРепозиторииОрганизацийБылПоискОрганизацийПоПользователю(string user)
+        {
+            var userId = _namedGuids.Ensure(user);
+            _repository
+                .Verify(x => x.FindOrganizationsforOwner(userId), Times.Once);
         }
 
         private class OrganizationRequisitesDtoData

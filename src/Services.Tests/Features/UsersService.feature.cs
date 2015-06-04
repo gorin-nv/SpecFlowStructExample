@@ -114,6 +114,11 @@ this.ScenarioSetup(scenarioInfo);
                         "org1"});
 #line 14
  testRunner.Then("в сервисе пользователей возвращает список имен организаций", ((string)(null)), table4, "Тогда ");
+#line 17
+ testRunner.And("в репозитории пользователей был поиск пользователя по имени \"nick\" и паролю \"1234" +
+                    "5\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "И ");
+#line 18
+ testRunner.And("в репозитории организаций был поиск организаций по пользователю \"user\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "И ");
 #line hidden
             this.ScenarioCleanup();
         }

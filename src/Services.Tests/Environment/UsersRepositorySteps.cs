@@ -33,6 +33,13 @@ namespace Services.Tests.Environment
                 .Returns(user);
         }
 
+        [Then(@"в репозитории пользователей был поиск пользователя по имени ""(.*)"" и паролю ""(.*)""")]
+        public void ВРепозиторииПользователейБылПоискПользователяПоИмениИПаролю(string name, string password)
+        {
+            _repository
+                .Verify(x => x.FindUser(name, password), Times.Once);
+        }
+
         private class UserRequisitesDtoData
         {
             public string UserId { get; set; }
